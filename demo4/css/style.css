@@ -1,0 +1,66 @@
+/*初始化 CSS 元素 start*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+body {
+	margin: 0;
+}
+a {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+	color: #ffffff;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #cccccc;
+	margin: 1em 0;
+	padding: 0;
+}
+/*初始化 END*/
+
+.box {
+	width: 400px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;
+    /margin: 0 auto;
+    background-color: #eee;
+	overflow: hidden;
+}
+
+.rounder_1{
+	width: 100px;
+    height: 100px;
+	position: absolute;
+    background: #00BCD4;
+    border-radius: 50px;
+	margin: -50px;
+}
+
+.rounder_2{
+	width: 100px;
+    height: 100px;
+	position: absolute;
+    background: #00BCD4;
+    border-radius: 50px;
+	margin-left: 350px;
+    margin-top: 150px;
+}
