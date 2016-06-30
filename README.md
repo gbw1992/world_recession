@@ -1,5 +1,2 @@
-# world_recession
-#这是一个百度前端学院的学习计划.
-
-#这是世界绝赞衰退中小队的介绍目录
-#完善待续..
+# world_recession 
+#bad end
