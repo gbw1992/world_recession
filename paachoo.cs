@@ -8,13 +8,26 @@ using System.Text.RegularExpressions; //正则表达式的命名空间
 
 namespace test
 {
-    public delegate void testWeiTuo(string name);   
+    public delegate void testWeiTuo(string name);
+    public delegate void GetWebData();
     class Program
     {
-        #region 公共变量
-        List<string> allMovieLink = new List<string>();
+        #region 变量
+        /// <summary>
+        /// 所有页面读取的内容
+        /// </summary>
+        public static List<string> pageData = new List<string>();
+        /// <summary>
+        /// 初始化WebClient实例
+        /// </summary>
+        public static WebClient WebContent = new WebClient();
+        /// <summary>
+        /// Loading标志位
+        /// </summary>
+        static bool _loading = true;
         public static event Action CallBack;
         #endregion
+
         static void Main(string[] args)
         {
             #region List数组
@@ -42,12 +55,19 @@ namespace test
             #endregion
 
             #region 网页抓取
-            WebClient WebContent = new WebClient();
+            GetWebData getWebData = getPageCon;
+            getWebData.BeginInvoke(null ,null); //异步执行网页读取
+            LoadingAnimate();
+            if (pageData.Count > 0)
+            {
+                //Console.WriteLine(pageData[0]);
+            }
+            else
+            {
+                Console.WriteLine("没有读取到数据");
+            }
             WebContent.Credentials = CredentialCache.DefaultCredentials;
-            #region 生成所有读取链接 string allMovieLink
             
-            
-            #endregion
             //Byte[] pageData = WebContent.DownloadData("https://movie.douban.com/top250"); //从指定网站下载数据
             //string pageHtml = Encoding.Default.GetString(pageData);  //如果获取网站页面采用的是GB2312，则使用这句            
             //string pageHtml = Encoding.UTF8.GetString(pageData); //如果获取网站页面采用的是UTF-8，则使用这句
@@ -62,22 +82,24 @@ namespace test
             Console.ReadKey();
         }
         #region 方法
+        /// <summary>
+        /// 获取所有页面链接,读取所有页面内容存放到pageData中
+        /// </summary>
         private static void getPageCon()
         {
+            List<string> allMovieLink = new List<string>();
             for (int i = 0; i < 250; i += 25)
             {
                 string linkTemp = "https://movie.douban.com/top250?start=" + i;
                 allMovieLink.Add(linkTemp);
             }
-        #endregion
-            #region 读取所有链接网站内容
-            List<string> pageData = new List<string>();
             foreach (string getlink in allMovieLink)
             {
                 Byte[] pageDatas = WebContent.DownloadData(getlink);
                 string pageHtml = Encoding.UTF8.GetString(pageDatas);
                 pageData.Add(pageHtml);
             }
+            _loading = false;
         }
         /// <summary>
         /// 获取网页中的链接
@@ -96,6 +118,28 @@ namespace test
                 links[i] = m[i].ToString(); //提取出结果
             }
             return links;
+        }
+        /// <summary>
+        /// Loading等待动画
+        /// </summary>
+        static void LoadingAnimate()
+        {
+            while (true)
+            {
+                // -/|\
+                string[] lo = new string[] { "-", "\\", "|", "/" };
+                for (int i = 0; i < 4; i++)
+                {
+                    Console.WriteLine("Loading...{0}", lo[i]);
+                    Thread.Sleep(500);
+                    Console.Clear();
+                }
+                if (!_loading)
+                {
+                    Console.WriteLine("网页读取完毕!");
+                    break;
+                }
+            }
         }
         #endregion
         
