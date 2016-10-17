@@ -1,2 +1,2 @@
 # world_recession 
-#bad end
+#bad end and NewStart
